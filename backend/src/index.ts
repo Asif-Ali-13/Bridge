@@ -20,7 +20,7 @@ app.get("/", (_, res) => {
     });
 });
 
-app.post("/api/v1/redeem/sepolia", async (req, res) => {
+app.post("/api/v1/redeem/avalanche", async (req, res) => {
 
     const web3 = new Web3();
     const logData = req?.body?.logs?.[0];
@@ -38,7 +38,7 @@ app.post("/api/v1/redeem/sepolia", async (req, res) => {
             if (tokenAddress && decodedData[1] && decodedData[2]) {
                 if (
                     tokenAddress?.toLocaleLowerCase() ==
-                    process.env.TESTTOKEN_SEPOLIA?.toLocaleLowerCase()
+                    process.env.TESTTOKEN_AVA?.toLocaleLowerCase()
                 ) {
                     await transferToken(true, {
                         to,
@@ -52,7 +52,7 @@ app.post("/api/v1/redeem/sepolia", async (req, res) => {
     }
 
     res.status(200).json({
-    message: "successfully send",
+        message: "successfully send",
     });
 });
 
@@ -88,18 +88,18 @@ app.post("/api/v1/redeem/bnb", async (req, res) => {
     });
 });
 
-const transferToken = async (issepolia: boolean, transferData: REEDEMTYPE) => {
+const transferToken = async (isAVA: boolean, transferData: REEDEMTYPE) => {
     try {
 
-        const RPC = issepolia ? process.env.BNB_RPC : process.env.SEPOLIA_RPC; 
+        const RPC = isAVA ? process.env.BNB_RPC : process.env.AVA_RPC; 
         const pk = process.env.PK!;
 
-        const contractAddress = issepolia
+        const contractAddress = isAVA
             ? process.env.BRIDGE_CONTRACT_ADDRESS_BNB!
-            : process.env.BRIDGE_CONTRACT_ADDRESS_SEPOLIA!;
-        const testToken = issepolia
+            : process.env.BRIDGE_CONTRACT_ADDRESS_AVA!;
+        const testToken = isAVA
             ? process.env.TESTTOKEN_BNB!
-            : process.env.TESTTOKEN_SEPOLIA!;
+            : process.env.TESTTOKEN_AVA!;
             
         const provider = new JsonRpcProvider(RPC);
         const wallet = new Wallet(pk, provider);
