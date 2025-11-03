@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum NETWORK {
+  BNB
+  Avalanche
+}
+
+model TransactionData {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  txHash       String   @unique
+  isDone       Boolean  @default(false)
+  tokenAddress String
+  amount       String
+  sender       String
+  network      String
+  nonce        Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model NetworkStatus {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  network            NETWORK  @unique
+  lastProcessedBlock Int
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Nonce {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  nonce   Int     @default(0)
+  network NETWORK @unique
+}
