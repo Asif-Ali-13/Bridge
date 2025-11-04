@@ -20,7 +20,7 @@ app.get("/", (_, res) => {
     });
 });
 
-app.post("/api/v1/redeem/avalanche", async (req, res) => {
+app.post("/api/v1/redeem/sepolia", async (req, res) => {
 
     const web3 = new Web3();
     const logData = req?.body?.logs?.[0];
@@ -38,7 +38,7 @@ app.post("/api/v1/redeem/avalanche", async (req, res) => {
             if (tokenAddress && decodedData[1] && decodedData[2]) {
                 if (
                     tokenAddress?.toLocaleLowerCase() ==
-                    process.env.TESTTOKEN_AVA?.toLocaleLowerCase()
+                    process.env.TESTTOKEN_SEPOLIA?.toLocaleLowerCase()
                 ) {
                     await transferToken(true, {
                         to,
@@ -56,7 +56,7 @@ app.post("/api/v1/redeem/avalanche", async (req, res) => {
     });
 });
 
-app.post("/api/v1/redeem/bnb", async (req, res) => {
+app.post("/api/v1/redeem/cello", async (req, res) => {
 
     const web3 = new Web3();
     const logData = req?.body?.logs?.[0];
@@ -73,7 +73,7 @@ app.post("/api/v1/redeem/bnb", async (req, res) => {
         if (tokenAddress && decodedData[1] && decodedData[2]) {
             if (
                 tokenAddress?.toLocaleLowerCase() ==
-                process.env.TESTTOKEN_BNB?.toLocaleLowerCase()
+                process.env.TESTTOKEN_CELLO?.toLocaleLowerCase()
             ) {
                 await transferToken(false, {
                     to,
@@ -88,18 +88,18 @@ app.post("/api/v1/redeem/bnb", async (req, res) => {
     });
 });
 
-const transferToken = async (isAVA: boolean, transferData: REEDEMTYPE) => {
+const transferToken = async (isSEPOLIA: boolean, transferData: REEDEMTYPE) => {
     try {
 
-        const RPC = isAVA ? process.env.BNB_RPC : process.env.AVA_RPC; 
+        const RPC = isSEPOLIA ? process.env.CELLO_RPC : process.env.SEPOLIA_RPC;
         const pk = process.env.PK!;
 
-        const contractAddress = isAVA
-            ? process.env.BRIDGE_CONTRACT_ADDRESS_BNB!
-            : process.env.BRIDGE_CONTRACT_ADDRESS_AVA!;
-        const testToken = isAVA
-            ? process.env.TESTTOKEN_BNB!
-            : process.env.TESTTOKEN_AVA!;
+        const contractAddress = isSEPOLIA
+            ? process.env.BRIDGE_CONTRACT_ADDRESS_CELLO!
+            : process.env.BRIDGE_CONTRACT_ADDRESS_SEPOLIA!;
+        const testToken = isSEPOLIA
+            ? process.env.TESTTOKEN_CELLO!
+            : process.env.TESTTOKEN_SEPOLIA!;
             
         const provider = new JsonRpcProvider(RPC);
         const wallet = new Wallet(pk, provider);
