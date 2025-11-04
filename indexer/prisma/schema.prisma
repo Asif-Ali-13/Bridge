@@ -11,8 +11,8 @@ datasource db {
 }
 
 enum NETWORK {
-  BNB
-  Avalanche
+  CELLO
+  SEPOLIA
 }
 
 model TransactionData {
