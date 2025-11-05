@@ -4,8 +4,8 @@ import { transferToken } from "../shared/utils";
 
 export const startProcessingQueue = () => {
     bridgeQueue.process(async (job) => {
+        
         const { txhash, tokenAddress, amount, sender, network } = job.data;
-
         let transaction = await prisma.transactionData.findUnique({
             where: { txHash: txhash },
         });
@@ -19,20 +19,19 @@ export const startProcessingQueue = () => {
 
             transaction = await prisma.transactionData.create({
                 data: {
-                txHash: txhash,
-                tokenAddress,
-                amount,
-                sender,
-                network,
-                isDone: false,
-                nonce: nonceRecord.nonce,
+                    txHash: txhash,
+                    tokenAddress,
+                    amount,
+                    sender,
+                    network,
+                    isDone: false,
+                    nonce: nonceRecord.nonce,
                 },
             });
         }
 
         if (transaction.isDone) return;
-
-        await transferToken(network === "CELLO", amount, sender, transaction.nonce);
+        await transferToken(network === "CELO", amount, sender, transaction.nonce);
 
         await prisma.transactionData.update({
             where: { txHash: txhash },

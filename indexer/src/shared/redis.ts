@@ -10,3 +10,6 @@ export const redisConfig = {
 
 export const bridgeQueue = new Bull("bridgeQueue", redisConfig);
 
+bridgeQueue.on('error', (err) => console.error('Queue error:', err));
+bridgeQueue.on('waiting', (jobId) => console.log('Job waiting:', jobId));
+bridgeQueue.on('completed', (job) => console.log('Job completed:', job.id));
