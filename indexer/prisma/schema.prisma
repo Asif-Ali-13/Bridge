@@ -11,7 +11,7 @@ datasource db {
 }
 
 enum NETWORK {
-  CELLO
+  CELO
   SEPOLIA
 }
 
