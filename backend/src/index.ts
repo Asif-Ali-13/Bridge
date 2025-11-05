@@ -117,6 +117,19 @@ const transferToken = async (isSEPOLIA: boolean, transferData: REEDEMTYPE) => {
     }
 };
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(` listening on http://localhost:${PORT}`);
+});
+
+process.on("SIGTERM", () => {
+    console.log("Shutting down...");
+    server.close(() => {
+        console.log("Server closed.");
+        process.exit(0);
+    });
+});
+
+process.on("SIGINT", () => {
+    console.log("Interrupted. Closing server...");
+    server.close(() => process.exit(0));
 });
