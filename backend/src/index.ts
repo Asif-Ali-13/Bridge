@@ -59,7 +59,7 @@ app.post("/api/v1/redeem/sepolia", async (req, res) => {
 app.post("/api/v1/redeem/celo", async (req, res) => {
 
     const web3 = new Web3();
-    const logData = req?.body?.logs?.[0];
+    const logData = req?.body?.logs?.[0];  
 
     if (logData) {
         const decodedData = web3.eth.abi.decodeParameters(
@@ -108,7 +108,7 @@ const transferToken = async (isSEPOLIA: boolean, transferData: REEDEMTYPE) => {
         const tx = await contractInstance.redeem(
             testToken,
             transferData.to,
-            transferData.value
+            transferData.value,
         );
         await tx.wait();
 
