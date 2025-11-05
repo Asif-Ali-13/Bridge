@@ -56,7 +56,7 @@ app.post("/api/v1/redeem/sepolia", async (req, res) => {
     });
 });
 
-app.post("/api/v1/redeem/cello", async (req, res) => {
+app.post("/api/v1/redeem/celo", async (req, res) => {
 
     const web3 = new Web3();
     const logData = req?.body?.logs?.[0];
@@ -73,7 +73,7 @@ app.post("/api/v1/redeem/cello", async (req, res) => {
         if (tokenAddress && decodedData[1] && decodedData[2]) {
             if (
                 tokenAddress?.toLocaleLowerCase() ==
-                process.env.TESTTOKEN_CELLO?.toLocaleLowerCase()
+                process.env.TESTTOKEN_CELO?.toLocaleLowerCase()
             ) {
                 await transferToken(false, {
                     to,
@@ -91,14 +91,14 @@ app.post("/api/v1/redeem/cello", async (req, res) => {
 const transferToken = async (isSEPOLIA: boolean, transferData: REEDEMTYPE) => {
     try {
 
-        const RPC = isSEPOLIA ? process.env.CELLO_RPC : process.env.SEPOLIA_RPC;
+        const RPC = isSEPOLIA ? process.env.CELO_RPC : process.env.SEPOLIA_RPC;
         const pk = process.env.PK!;
 
         const contractAddress = isSEPOLIA
-            ? process.env.BRIDGE_CONTRACT_ADDRESS_CELLO!
+            ? process.env.BRIDGE_CONTRACT_ADDRESS_CELO!
             : process.env.BRIDGE_CONTRACT_ADDRESS_SEPOLIA!;
         const testToken = isSEPOLIA
-            ? process.env.TESTTOKEN_CELLO!
+            ? process.env.TESTTOKEN_CELO!
             : process.env.TESTTOKEN_SEPOLIA!;
             
         const provider = new JsonRpcProvider(RPC);
