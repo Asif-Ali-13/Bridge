@@ -2,9 +2,13 @@ import { bridgeQueue } from "../shared/redis";
 import { prisma } from "../shared/prisma";
 import { transferToken } from "../shared/utils";
 
-export const startProcessingQueue = () => {
-    bridgeQueue.process(async (job) => {
-        
+export const startProcessingQueue = async () => {
+
+    await bridgeQueue.isReady();
+    console.log("Queue confirmed ready via isReady()");
+
+    await bridgeQueue.process(async (job) => {
+    
         const { txhash, tokenAddress, amount, sender, network } = job.data;
         let transaction = await prisma.transactionData.findUnique({
             where: { txHash: txhash },
@@ -17,6 +21,7 @@ export const startProcessingQueue = () => {
                 create: { network, nonce: 1 },
             });
 
+            console.log("nonceRecord: ", nonceRecord.nonce);
             transaction = await prisma.transactionData.create({
                 data: {
                     txHash: txhash,
@@ -38,4 +43,6 @@ export const startProcessingQueue = () => {
             data: { isDone: true },
         });
     });
+    
+    bridgeQueue.on('error', (err) => console.error('Queue error:', err));
 };

@@ -17,7 +17,6 @@ export const listenToBridgeEvents = async (
     });
 
     const latestBlock = await provider.getBlockNumber();
-    console.log(latestBlock);
 
     if (!lastProcessedBlock) {
         const data = await prisma.networkStatus.create({
@@ -53,7 +52,7 @@ export const listenToBridgeEvents = async (
 
     while (fromBlock <= latestBlock) {
         const toBlock = Math.min(fromBlock + BATCH_SIZE - 1, latestBlock);
-        console.log(`Fetching logs from block ${fromBlock} to ${toBlock}`);
+        // console.log(`Fetching logs from block ${fromBlock} to ${toBlock}`);
 
         try {
             const logs = await safeGetLogs(
@@ -83,7 +82,6 @@ export const listenToBridgeEvents = async (
                             },
                             { jobId: log.transactionHash.toLowerCase() } // ensures no duplicates
                         );
-                        console.log("from indexer/worker/eventListener, job added to queue");
                         console.log(`from ${network} : ${log.transactionHash} is added to queue`);
                     } 
                     catch (err) {
