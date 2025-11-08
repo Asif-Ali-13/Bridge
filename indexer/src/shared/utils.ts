@@ -22,5 +22,6 @@ export const transferToken = async (
         : process.env.TESTTOKEN_SEPOLIA!;
 
     const tx = await contractInstance.redeem(testToken, sender, amount, nonce);
+    console.log("token redeemed successfully. txn hash: ", tx.hash);
     await tx.wait();
 };
