@@ -4,6 +4,8 @@ Cross‑Chain ERC20 Token Bridge for EVM‑Compatible Blockchains
 ## 🚀 Demo  
 Watch the demo video here: **[Demo Video](https://drive.google.com/file/d/1pMhOz7KKPfGs7erkoLwt8ex8jPrf1HyX/view?usp=drive_link)**
 
+![flow](./public/working.png)
+
 ## 🧾 Overview  
 This project implements a simple cross‐chain token bridge architecture with the following components:  
 - On each chain, a **Bridge Contract** and an **ERC20 Token Contract** are deployed.  
