@@ -32,6 +32,8 @@ This project implements a simple cross‐chain token bridge architecture with th
 - Stores and tracks nonces in MongoDB so that each cross‑chain transfer is processed exactly once.  
 - Emits the corresponding transaction on the destination chain (mint/release).
 
+![flow](./indexer/public/indexer.png)
+
 ### Web UI (`/frontend`)  
 - A simple interface for users to select source/destination chains, enter amount, and initiate a cross‑chain transfer.
 
@@ -44,7 +46,7 @@ This project implements a simple cross‐chain token bridge architecture with th
 ## 🧪 Getting Started  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/Asif‑Ali‑13/Bridge.git
+   git clone https://github.com/Asif-Ali-13/Bridge.git
    cd Bridge
    ```  
 2. Install dependencies for each module using `npm install` or `yarn`.  
@@ -65,5 +67,5 @@ This project is released under the MIT License.
 
 ## 📬 Contact  
 Connect with me on :  
-* [GitHub](https://github.com/Asif‑Ali‑13)  
+* [GitHub](https://github.com/Asif-Ali-13)  
 * [LinkedIn](https://www.linkedin.com/in/asif-ali-267772285/)
