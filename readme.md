@@ -2,7 +2,7 @@
 Cross‑Chain ERC20 Token Bridge for EVM‑Compatible Blockchains
 
 ## 🚀 Demo  
-Watch the demo video here: **[Demo Video](https://drive.google.com/file/d/1pMhOz7KKPfGs7erkoLwt8ex8jPrf1HyX/view?usp=drive_link)**
+Watch the demo video here: **[Demo Video](https://drive.google.com/file/d/1zJlD8nylR0biwKGAb0NQxrYNW-bZuuvq/view?usp=drivesdk)**
 
 ![flow](./public/working.png)
 
